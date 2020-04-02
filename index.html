@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function computerPlay(){
+                const myArray = [
+                    "Rock",
+                    "Paper",
+                    "Scissors"
+                ];
+                const computerSelect = myArray[Math.floor(Math.random()*myArray.length)];
+                return computerSelect;
+            }
+        
+            function playerPlay(){
+                const playerInput = prompt("What do you choose?");
+                const playerInputLower = playerInput.toLowerCase();
+                const playerSelect = playerInputLower.charAt(0).toUpperCase() + playerInputLower.slice(1);
+                return playerSelect;
+            }
+        
+            function playRound() {
+                const playerSelection = playerPlay()
+                const computerSelection = computerPlay()
+                if ((playerSelection == "Rock" && computerSelection == "Scissors") || (playerSelection == "Paper" && computerSelection == "Rock") || (playerSelection == "Scissors" && computerSelection == "Paper")){
+                    return `You Win! ${playerSelection} beats ${computerSelection}`;
+                } else if (playerSelection == computerSelection) {
+                    return `It's a Draw! You both picked ${playerSelection}`;
+                } else {
+                    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+                }
+            }
+            
+            function game(){
+                alert("Let's play Rock, Paper, Scissors! Best out of five");
+                
+                let playerWinCount = 0;
+                let computerWinCount = 0;
+                let i;
+
+                for (i = 1; i < 6 && (playerWinCount !== 3 && computerWinCount !== 3); i++){
+                    rawResult = playRound();
+                    exclamationPointIndex = rawResult.indexOf("!");
+                    result = rawResult.slice(0,exclamationPointIndex).trim();
+                    if (result == "You Win"){
+                        playerWinCount = playerWinCount + 1;
+                    } else if (result == "You Lose"){
+                        computerWinCount = computerWinCount +1;
+                    } 
+                    console.log(`Round ${i}: ${rawResult}. Player: ${playerWinCount}, Computer: ${computerWinCount}`);
+                }
+            
+
+                if (playerWinCount > computerWinCount){
+                    alert(`Congrats! You have won this game of Rock, Paper, Scissors. Play again?`); 
+                } else if (playerWinCount < computerWinCount){
+                    alert(`Sorry! You have lost this game of Rock, Paper, Scissors. Try again?`);
+                } else {
+                    alert(`Ugh! You have drawn this game of Rock, Paper, Scissors. Play again?`);
+                }
+            }
+
+            game()
+
+        </script>
+    </body>
+</html>
